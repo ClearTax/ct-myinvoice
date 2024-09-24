@@ -1,0 +1,19 @@
+{
+  "name": "ct-myinvoice",
+  "version": "1.0.0",
+  "description": "This package provides iframe which loads Clear My-invoice customer portal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClearTax/ct-myinvoice.git"
+  },
+  "author": "https://github.com/ClearTax",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ClearTax/ct-myinvoice/issues"
+  },
+  "homepage": "https://github.com/ClearTax/ct-myinvoice#readme"
+}

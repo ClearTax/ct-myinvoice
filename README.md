@@ -1,13 +1,13 @@
 ## ct-myinvoice
 
-This package provides a function to create an iframe element with customizable `width`, `height`, and `title`, while the `src` is fixed to a specific URL.
+This package provides a function to create an iframe element with customizable `width`, `height`, `sid`, `tin` and `title`, while the `src` is fixed to a specific URL.
 
 ## Installation
 
 To install the package, use npm:
 
 ```bash
-npm install my-iframe-package
+npm install ct-myinvoice
 ```
 
 ### How To use in javascript base project ?
@@ -20,6 +20,8 @@ const renderClearCustomerPortal = require('ct-myinvoice');
 const iframe = renderClearCustomerPortal({
   width: '600',
   height: '400',
+  sid: '123',
+  tin: 'XYZ',
   title: 'Generate einvoice',
 });
 
@@ -43,6 +45,8 @@ const ExampleComponent = () => {
     const iframe = renderClearCustomerPortal({
       width: '600',
       height: '400',
+      sid: '123',
+      tin: 'XYZ',
       title: 'My Custom Iframe',
     });
 

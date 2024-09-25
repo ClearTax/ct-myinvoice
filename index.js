@@ -5,7 +5,7 @@ const iframeSrcArr = [
 ];
 
 function renderClearCustomerPortal({
-  sid,
+  token,
   width,
   height,
   tin,
@@ -13,8 +13,8 @@ function renderClearCustomerPortal({
   iframeSrc = 'myinvoice-dev.my.cleartax.com',
   style,
 }) {
-  if (!sid) {
-    throw new Error('sid is required parameter.');
+  if (!token) {
+    throw new Error('token is required parameter.');
   } else if (!iframeSrcArr.includes(iframeSrc)) {
     throw new Error('Invalid iframe Src');
   }
@@ -24,7 +24,7 @@ function renderClearCustomerPortal({
 
   const tinQuery = tin ? `&tin=${tin}` : '';
 
-  iframe.src = `https://${iframeSrc}/?iframe=true${tinQuery}`; // fixed URL
+  iframe.src = `https://${iframeSrc}/?token=${token}&iframe=true${tinQuery}`; // fixed URL
 
   // Apply user-defined properties
   if (width) iframe.width = width;
@@ -36,14 +36,6 @@ function renderClearCustomerPortal({
       iframe.style[key] = style[key];
     });
   }
-
-  iframe.onload = () => {
-    // Sending the SID to the iframe once it's loaded
-    setTimeout(() => {
-      if (iframe.contentWindow)
-        iframe.contentWindow.postMessage({ sid: sid }, iframe.src);
-    }, 100);
-  };
 
   // Return the iframe element
   return iframe;

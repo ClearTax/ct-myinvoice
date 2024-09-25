@@ -5,7 +5,7 @@ export type IFrameSrc =
   | 'myinvoice-sandbox.my.cleartax.com';
 
 export interface ICreateIframeOptions {
-  sid: string;
+  token: string;
   width?: string;
   height?: string;
   tin?: string;

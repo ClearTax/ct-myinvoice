@@ -1,6 +1,21 @@
-function renderClearCustomerPortal({ width, height, sid, tin, title }) {
+const iframeSrcArr = [
+  'myinvoice-dev.my.cleartax.com',
+  'myinvoice.my.cleartax.com',
+  'myinvoice-sandbox.my.cleartax.com',
+];
+
+function renderClearCustomerPortal({
+  width,
+  height,
+  tin,
+  sid,
+  title,
+  iframeSrc = 'myinvoice-dev.my.cleartax.com',
+}) {
   if (!width || !height || !sid) {
     throw new Error('Width, height, sid are required parameters.');
+  } else if (!iframeSrcArr.includes(iframeSrc)) {
+    throw new Error('Invalid iframeSrc');
   }
 
   // Creation of iframe element
@@ -8,7 +23,7 @@ function renderClearCustomerPortal({ width, height, sid, tin, title }) {
 
   const tinQuery = tin ? `&tin=${tin}` : '';
 
-  iframe.src = `https://myinvoice-dev.my.cleartax.com/?iframe=true${tinQuery}`; // fixed URL
+  iframe.src = `https://${iframeSrc}/?iframe=true${tinQuery}`; // fixed URL
 
   // Apply user-defined properties
   iframe.width = width;
@@ -19,8 +34,9 @@ function renderClearCustomerPortal({ width, height, sid, tin, title }) {
   iframe.onload = () => {
     // Sending the SID to the iframe once it's loaded
     setTimeout(() => {
-      iframe.contentWindow.postMessage({ sid: sid }, iframe.src);
-    }, [100]);
+      if (iframe.contentWindow)
+        iframe.contentWindow.postMessage({ sid: sid }, iframe.src);
+    }, 100);
   };
 
   // Return the iframe element

@@ -5,17 +5,18 @@ const iframeSrcArr = [
 ];
 
 function renderClearCustomerPortal({
+  sid,
   width,
   height,
   tin,
-  sid,
   title,
   iframeSrc = 'myinvoice-dev.my.cleartax.com',
+  style,
 }) {
-  if (!width || !height || !sid) {
-    throw new Error('Width, height, sid are required parameters.');
+  if (!sid) {
+    throw new Error('sid is required parameter.');
   } else if (!iframeSrcArr.includes(iframeSrc)) {
-    throw new Error('Invalid iframeSrc');
+    throw new Error('Invalid iframe Src');
   }
 
   // Creation of iframe element
@@ -26,11 +27,16 @@ function renderClearCustomerPortal({
   iframe.src = `https://${iframeSrc}/?iframe=true${tinQuery}`; // fixed URL
 
   // Apply user-defined properties
-  iframe.width = width;
-  iframe.height = height;
-  if (title) {
-    iframe.title = title;
+  if (width) iframe.width = width;
+  if (height) iframe.height = height;
+  if (title) iframe.title = title;
+
+  if (style) {
+    Object.keys(style).forEach((key) => {
+      iframe.style[key] = style[key];
+    });
   }
+
   iframe.onload = () => {
     // Sending the SID to the iframe once it's loaded
     setTimeout(() => {

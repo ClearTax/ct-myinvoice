@@ -1,6 +1,6 @@
 ## ct-myinvoice
 
-This package provides a function to create an iframe element with customizable `width`, `height`, `token`, `tin` and `title`, while the `src` is fixed to a specific URL.
+This package provides a function to create an iframe element with customizable `width`, `height`, `token`, `tin` and `title`, while the `environment` is fixed to a specific URL.
 
 ## Installation
 
@@ -17,14 +17,13 @@ npm install ct-myinvoice
 const renderClearCustomerPortal = require('ct-myinvoice');
 
 // Here you can either send width - height or you can send style object
-// Iframe src will be cleartax domain you want to load
 const iframe = renderClearCustomerPortal({
   width: '600',
   height: '400',
   token: '123',
   tin: 'XYZ',
   title: 'Generate einvoice',
-  iframeSrc: 'myinvoice-sandbox.my.cleartax.com',
+  environment: 'sandbox',
 });
 
 // Append the iframe to the document body or any element
@@ -45,7 +44,6 @@ const ExampleComponent = () => {
   useEffect(() => {
     // Create the iframe using the package's function
     // Here you can either send width - height or you can send style object
-    // Iframe src will be cleartax domain you want to load
     const iframe = renderClearCustomerPortal({
       width: '600',
       height: '400',
@@ -53,7 +51,7 @@ const ExampleComponent = () => {
       tin: 'XYZ',
       title: 'My Custom Iframe',
       style: { width: '100%', height: '100%' },
-      iframeSrc: 'myinvoice-sandbox.my.cleartax.com',
+      environment: 'sandbox',
     });
 
     // Append the iframe to the div container when the component mounts

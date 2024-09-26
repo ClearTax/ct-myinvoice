@@ -1,8 +1,10 @@
-const iframeSrcArr = [
-  'myinvoice-dev.my.cleartax.com',
-  'myinvoice.my.cleartax.com',
-  'myinvoice-sandbox.my.cleartax.com',
-];
+const EnvironmentArr = ['development', 'sandbox', 'production'];
+
+const domainOriginMapping = {
+  development: 'myinvoice-dev.my.cleartax.com',
+  sandbox: 'myinvoice-sandbox.my.cleartax.com',
+  production: 'myinvoice.my.cleartax.com',
+};
 
 function renderClearCustomerPortal({
   token,
@@ -10,12 +12,12 @@ function renderClearCustomerPortal({
   height,
   tin,
   title,
-  iframeSrc = 'myinvoice-dev.my.cleartax.com',
+  environment = 'sandbox',
   style,
 }) {
   if (!token) {
     throw new Error('token is required parameter.');
-  } else if (!iframeSrcArr.includes(iframeSrc)) {
+  } else if (!EnvironmentArr.includes(environment)) {
     throw new Error('Invalid iframe Src');
   }
 
@@ -24,7 +26,9 @@ function renderClearCustomerPortal({
 
   const tinQuery = tin ? `&tin=${tin}` : '';
 
-  iframe.src = `https://${iframeSrc}/?token=${token}&iframe=true${tinQuery}`; // fixed URL
+  const domainOrigin = domainOriginMapping[environment];
+
+  iframe.src = `https://${domainOrigin}/?token=${token}&iframe=true${tinQuery}`; // fixed URL
 
   // Apply user-defined properties
   if (width) iframe.width = width;

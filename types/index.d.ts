@@ -1,15 +1,12 @@
 // types/index.d.ts
-export type IFrameSrc =
-  | 'myinvoice-dev.my.cleartax.com'
-  | 'myinvoice.my.cleartax.com'
-  | 'myinvoice-sandbox.my.cleartax.com';
+export type EnvironmentType = 'development' | 'sandbox' | 'production';
 
 export interface ICreateIframeOptions {
   token: string;
   width?: string;
   height?: string;
   tin?: string;
-  iframeSrc?: IFrameSrc;
+  environment?: EnvironmentType;
   title?: string;
   style?: { [key: string]: string }; // Optional inline style object
 }

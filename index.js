@@ -46,7 +46,7 @@ function renderClearCustomerPortal({
     setTimeout(() => {
       if (callbackFunc) {
         iframe.contentWindow.postMessage(
-          { type: 'callback', callback: callbackFunc.toString() },
+          { type: 'callback', iframeCallback: callbackFunc.toString() },
           domainOrigin
         );
       }

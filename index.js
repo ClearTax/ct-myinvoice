@@ -1,9 +1,9 @@
 const EnvironmentArr = ['development', 'sandbox', 'production'];
 
 const domainOriginMapping = {
-  development: 'myinvoice-dev.my.cleartax.com',
-  sandbox: 'myinvoice-sandbox.my.cleartax.com',
-  production: 'myinvoice.my.cleartax.com',
+  development: 'https://myinvoice-dev.my.cleartax.com',
+  sandbox: 'https://myinvoice-sandbox.my.cleartax.com',
+  production: 'https://myinvoice.my.cleartax.com',
 };
 
 function renderClearCustomerPortal({
@@ -14,6 +14,7 @@ function renderClearCustomerPortal({
   title,
   environment = 'sandbox',
   style,
+  callbackFunc,
 }) {
   if (!token) {
     throw new Error('token is required parameter.');
@@ -28,7 +29,7 @@ function renderClearCustomerPortal({
 
   const domainOrigin = domainOriginMapping[environment];
 
-  iframe.src = `https://${domainOrigin}/?token=${token}&iframe=true${tinQuery}`; // fixed URL
+  iframe.src = `${domainOrigin}/?token=${token}&iframe=true${tinQuery}`; // fixed URL
 
   // Apply user-defined properties
   if (width) iframe.width = width;
@@ -40,6 +41,17 @@ function renderClearCustomerPortal({
       iframe.style[key] = style[key];
     });
   }
+
+  iframe.addEventListener('load', function () {
+    setTimeout(() => {
+      if (callbackFunc) {
+        iframe.contentWindow.postMessage(
+          { type: 'callback', iframeCallback: callbackFunc.toString() },
+          domainOrigin
+        );
+      }
+    }, 100);
+  });
 
   // Return the iframe element
   return iframe;

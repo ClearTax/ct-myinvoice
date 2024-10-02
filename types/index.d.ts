@@ -13,7 +13,7 @@ export interface ICreateIframeOptions {
   environment?: EnvironmentType;
   title?: string;
   style?: { [key: string]: string }; // Optional inline style object
-  callbackFunc: (data: CallbackData) => void;
+  callbackFunc?: (data: CallbackData) => void;
 }
 
 export default function createIframe(

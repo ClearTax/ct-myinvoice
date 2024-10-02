@@ -1,6 +1,6 @@
 ## ct-myinvoice
 
-This package provides a function to create an iframe element with customizable `width`, `height`, `token`, `tin` and `title`, while the `environment` is fixed to a specific URL.
+This package provides a function to create an iframe element with customizable `width`, `height`, `token`, `tin`, `callbackFunc` and `title`, while the `environment` is fixed to a specific URL.
 
 ## Installation
 
@@ -16,6 +16,11 @@ npm install ct-myinvoice
 // Import the package
 const renderClearCustomerPortal = require('ct-myinvoice');
 
+// Here in data you will get status code
+const callbackFunc = (data) => {
+  console.log(data);
+}
+
 // Here you can either send width - height or you can send style object
 const iframe = renderClearCustomerPortal({
   width: '600',
@@ -24,6 +29,7 @@ const iframe = renderClearCustomerPortal({
   tin: 'XYZ',
   title: 'Generate einvoice',
   environment: 'sandbox',
+  callbackFunc: callbackFunc,
 });
 
 // Append the iframe to the document body or any element
@@ -41,6 +47,11 @@ import renderClearCustomerPortal from 'ct-myinvoice';
 const ExampleComponent = () => {
   const iframeContainerRef = useRef(null);
 
+  // Here in data you will get status code
+  const callbackFunc = (data) => {
+    console.log(data);
+  }
+
   useEffect(() => {
     // Create the iframe using the package's function
     // Here you can either send width - height or you can send style object
@@ -52,6 +63,7 @@ const ExampleComponent = () => {
       title: 'My Custom Iframe',
       style: { width: '100%', height: '100%' },
       environment: 'sandbox',
+      callbackFunc: callbackFunc,
     });
 
     // Append the iframe to the div container when the component mounts

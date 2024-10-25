@@ -1,6 +1,6 @@
 {
   "name": "ct-myinvoice",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "This package provides iframe which loads Clear My-invoice customer portal",
   "main": "index.js",
   "types": "types/index.d.ts",

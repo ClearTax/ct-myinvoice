@@ -1,6 +1,6 @@
 ## ct-myinvoice
 
-This package provides a function to create an iframe element with customizable `width`, `height`, `token`, `tin`, `callbackFunc` and `title`, while the `environment` is fixed to a specific URL.
+This package provides a function to create an iframe element with customizable `width`, `height`, `token`, `tin`, and `title`, while the `environment` is fixed to a specific URL.
 
 ## Installation
 
@@ -17,9 +17,12 @@ npm install ct-myinvoice
 const renderClearCustomerPortal = require('ct-myinvoice');
 
 // Here in data you will get status code
-const callbackFunc = (data) => {
-  console.log(data);
-}
+window.addEventListener('message', (event) => {
+  if (event.data.status) {
+    // You will get status code in above field
+    // You can update status in your application and then use it according to your usecase    sethttpstatuscode(event.data.status);
+  }
+});
 
 // Here you can either send width - height or you can send style object
 const iframe = renderClearCustomerPortal({
@@ -29,7 +32,6 @@ const iframe = renderClearCustomerPortal({
   tin: 'XYZ',
   title: 'Generate einvoice',
   environment: 'sandbox',
-  callbackFunc: callbackFunc,
 });
 
 // Append the iframe to the document body or any element
@@ -46,11 +48,19 @@ import renderClearCustomerPortal from 'ct-myinvoice';
 
 const ExampleComponent = () => {
   const iframeContainerRef = useRef(null);
+  const [httpstatuscode, sethttpstatuscode] = useState();
 
-  // Here in data you will get status code
-  const callbackFunc = (data) => {
-    console.log(data);
-  }
+  // Here in event data you will get status code
+  useEffect(() => {
+    window.addEventListener('message', (event) => {
+      if (event.data.status) {
+        // You will get status code in above field
+        // You can update status in your application and then use it according to your usecase
+        sethttpstatuscode(event.data.status);
+      }
+    });
+  }, []);
+
 
   useEffect(() => {
     // Create the iframe using the package's function
@@ -63,7 +73,6 @@ const ExampleComponent = () => {
       title: 'My Custom Iframe',
       style: { width: '100%', height: '100%' },
       environment: 'sandbox',
-      callbackFunc: callbackFunc,
     });
 
     // Append the iframe to the div container when the component mounts

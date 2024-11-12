@@ -1,5 +1,5 @@
 // types/index.d.ts
-export type EnvironmentType = 'development' | 'sandbox' | 'production';
+export type EnvironmentType = 'development' | 'sandbox' | 'production' | 'qa';
 
 export interface ICreateIframeOptions {
   token: string;
@@ -9,6 +9,7 @@ export interface ICreateIframeOptions {
   environment?: EnvironmentType;
   title?: string;
   style?: { [key: string]: string }; // Optional inline style object
+  privacyPolicyLink?: string;
 }
 
 export default function createIframe(

@@ -1,7 +1,8 @@
-const EnvironmentArr = ['development', 'sandbox', 'production'];
+const EnvironmentArr = ['development', 'qa', 'sandbox', 'production'];
 
 const domainOriginMapping = {
   development: 'https://myinvoice-dev.my.cleartax.com',
+  qa: 'https://myinvoice-qa.my.cleartax.com',
   sandbox: 'https://myinvoice-sandbox.my.cleartax.com',
   production: 'https://myinvoice.my.cleartax.com',
 };
@@ -14,6 +15,7 @@ function renderClearCustomerPortal({
   title,
   environment = 'sandbox',
   style,
+  privacyPolicyLink,
 }) {
   if (!token) {
     throw new Error('token is required parameter.');
@@ -28,7 +30,7 @@ function renderClearCustomerPortal({
 
   const domainOrigin = domainOriginMapping[environment];
 
-  iframe.src = `${domainOrigin}/?token=${token}&iframe=true${tinQuery}&iframeParentOrigin=${window.origin}`; // fixed URL
+  iframe.src = `${domainOrigin}/?token=${token}&iframe=true${tinQuery}&iframeParentOrigin=${window.origin}&privacyPolicyLink=${privacyPolicyLink}`; // fixed URL
 
   // Apply user-defined properties
   if (width) iframe.width = width;

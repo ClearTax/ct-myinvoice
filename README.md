@@ -1,6 +1,6 @@
 ## ct-myinvoice
 
-This package provides a function to create an iframe element with customizable `width`, `height`, `token`, `tin`, and `title`, while the `environment` is fixed to a specific URL.
+This package provides a function to create an iframe element with customizable `width`, `height`, `token`, `tin`, `privacyPolicyLink` and `title`, while the `environment` is fixed to a specific URL.
 
 ## Installation
 
@@ -32,6 +32,8 @@ const iframe = renderClearCustomerPortal({
   tin: 'XYZ',
   title: 'Generate einvoice',
   environment: 'sandbox',
+  privacyPolicyLink: 'https://sample-privacy-policy' // Add your hosted privacy policy link
+
 });
 
 // Append the iframe to the document body or any element
@@ -73,6 +75,7 @@ const ExampleComponent = () => {
       title: 'My Custom Iframe',
       style: { width: '100%', height: '100%' },
       environment: 'sandbox',
+      privacyPolicyLink: 'https://sample-privacy-policy' // Add your hosted privacy policy link
     });
 
     // Append the iframe to the div container when the component mounts
